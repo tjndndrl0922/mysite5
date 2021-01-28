@@ -4,21 +4,21 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.javaex.dao.UserDao;
+import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
 
 @Controller
 @RequestMapping(value= "/user")
 public class UserController {
-	
-	//필드
+
 	@Autowired
-	private UserDao userDao;
-	
+	private UserService userService;
 	//생성자
 	
 	//메소드 g.s
@@ -37,7 +37,7 @@ public class UserController {
 		System.out.println("/user/join");
 		System.out.println(userVo.toString());
 		
-		int count = userDao.insert(userVo);
+		int count = userService.join(userVo); //꼭 count로 안받아도됨.
 		
 		return "user/joinOk";
 	}
@@ -55,7 +55,7 @@ public class UserController {
 		System.out.println("/user/login");
 		System.out.println(userVo.toString());
 		
-		UserVo authUser = userDao.selectUser(userVo);
+		UserVo authUser = userService.login(userVo);
 		
 		//실패했을때 --> 로그인폼 result = fail
 		if(authUser == null) {
@@ -83,24 +83,46 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	//http://localhost:8088/mysite5/user/modifyForm?no=?
+	//http://localhost:8088/mysite5/user/modifyForm
 	@RequestMapping(value="/modifyForm", method = {RequestMethod.GET,RequestMethod.POST})
-	public String modifyForm(HttpSession session, @ModelAttribute UserVo userVo) {
+	public String modifyForm(HttpSession session, Model model) {
 		System.out.println("/user/modifyForm");
 		
-		int count = userDao.getUser(userVo);
+		//세션에서 no값 가져오기
+		int no = ((UserVo) session.getAttribute("authUser")).getNo();
 		
+		//세션값이 없으면 --> 로그인폼으로
+		
+		
+		//회원정보 가져오기
+		UserVo userVo = userService.modifyForm(no);
+		
+		//jsp에 데이터 보내기
+		model.addAttribute("userVo", userVo);
 		return "user/modifyForm";
 	}
 	
-	//http://localhost:8088/mysite5/user/modify?
+	//http://localhost:8088/mysite5/user/modify?password=?&name=?&gender=?
 	@RequestMapping(value="/modify",method = {RequestMethod.GET,RequestMethod.POST})
 	public String modify(HttpSession session, @ModelAttribute UserVo userVo) {
 		System.out.println("/user/modify");
+		//세션에 사용자 정보 가져오기
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		
-		int count = userDao.update(userVo);
+		//세션에서 no값 가져오기
+		int no = authUser.getNo();
 		
-		return"";
+		//vo에 no 정보 추가
+		userVo.setNo(no);
+		
+		//회원정보 수정
+		int count = userService.modify(userVo);
+		
+		//세션에 이름변경
+		authUser.setName(userVo.getName());
+		
+		
+		return "redirect:/";
 	}
 	
 	
