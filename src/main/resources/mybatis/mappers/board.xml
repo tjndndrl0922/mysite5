@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<!-- 쿼리문 작성 -->
+	<!-- BoardVo Map -->
+	<resultMap id="resultMapBoardVo" type="com.javaex.vo.BoardVo" >
+	    <result column="no" property="no" />
+	    <result column="title" property="title" />
+	    <result column="content" property="content" />
+	    <result column="hit" property="hit" />
+	    <result column="reg_date" property="regDate" />
+	    <result column="user_no" property="userNo" />
+	    <result column="name" property="name" />
+	</resultMap>
+
+	<!-- 전체리스트 가져오기 -->
+	<select id="selectList" resultMap="resultMapBoardVo">
+	    <![CDATA[
+	        SELECT  b.no,
+			        b.title,
+			        u.name,
+			        b.hit,
+			        b.reg_date
+			FROM board b, users u
+			where b.user_no = u.no
+	    ]]>
+	</select>
+
+
+
+
+
+
+
+
+</mapper>
