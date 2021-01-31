@@ -20,4 +20,28 @@ public class BoardService {
 		return boardDao.selectList();
 	}
 	
+	//read
+	public BoardVo read(int no) {
+		System.out.println("service read");
+		return boardDao.selectOne(no);
+	}
+	
+	//write
+	public int write(BoardVo boardVo) {
+		System.out.println("service write");
+		return boardDao.insert(boardVo);
+	}
+	
+	//modifyForm
+	public BoardVo modifyForm(int no) {
+		System.out.println("service modifyForm");
+		return boardDao.selectOne(no);
+	}
+	
+	//modify
+	public int modify(BoardVo boardVo) {
+		System.out.println("service modify");
+		return boardDao.update(boardVo);
+	}
+	
 }

@@ -63,10 +63,10 @@
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach items="${boardList}" var="vo" varStatus="status">
+						<c:forEach items="${boardList}" var="vo">
 								<tr>
 									<td>${vo.no }</td>
-									<td class="text-left"><a href="">${vo.title } </a></td>
+									<td class="text-left"><a href="${pageContext.request.contextPath}/board/read?no=${vo.no}">${vo.title } </a></td>
 									<td>${vo.name } </td>
 									<td>${vo.hit } </td>
 									<td>${vo.regDate } </td>
@@ -137,7 +137,7 @@
 						
 						<div class="clear"></div>
 					</div>
-					<a id="btn_write" href="">글쓰기</a>
+					<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm">글쓰기</a>
 				
 				</div>
 				<!-- //list -->
