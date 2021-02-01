@@ -52,7 +52,13 @@
 		]]>
 	</select>
 
-
+	<select id="delete" parameterType="int">
+		<![CDATA[
+			delete from board
+			where no =#{no}
+		
+		]]>	
+	</select>
 
 
 </mapper>

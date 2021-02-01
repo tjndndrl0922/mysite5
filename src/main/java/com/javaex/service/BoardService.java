@@ -44,4 +44,9 @@ public class BoardService {
 		return boardDao.update(boardVo);
 	}
 	
+	//delete
+	public int remove(int no) {
+		System.out.println("service remove");
+		return boardDao.delete(no);
+	}
 }

@@ -63,4 +63,10 @@ public class BoradController {
 		return "redirect:/board/list";
 	}
 	
+	@RequestMapping(value="/delete", method = {RequestMethod.GET,RequestMethod.POST})
+	public String remove(@RequestParam("no") int no) {
+		System.out.println("controller remove");
+		boardService.remove(no);
+		return "redirect:/board/list"; 
+	}
 }

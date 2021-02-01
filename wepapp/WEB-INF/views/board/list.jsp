@@ -71,7 +71,7 @@
 									<td>${vo.hit } </td>
 									<td>${vo.regDate } </td>
 								
-										<td><a href="">[삭제]</a></td>
+										<td><a href="${pageContext.request.contextPath}/board/delete?no=${vo.no}">[삭제]</a></td>
 									
 								</tr>
 						</c:forEach>

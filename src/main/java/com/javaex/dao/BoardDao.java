@@ -37,4 +37,10 @@ public class BoardDao {
 		System.out.println("dao update");
 		return sqlSession.update("board.update", boardVo);
 	}
+	
+	//삭제
+	public int delete(int no) {
+		System.out.println("dao delete");
+		return sqlSession.delete("board.delete", no);
+	}
 }
