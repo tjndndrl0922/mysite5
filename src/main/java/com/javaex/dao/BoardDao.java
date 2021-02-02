@@ -26,6 +26,12 @@ public class BoardDao {
 		return sqlSession.selectOne("board.selectOne", no);
 	}
 	
+	//조회수 증가
+	public int hitupdate(int no) {
+		System.out.println("dao hit");
+		return sqlSession.update("board.hitUpdate", no);
+	}
+	
 	//저장
 	public int insert(BoardVo boardVo) {
 		System.out.println("dao insert");
@@ -42,5 +48,11 @@ public class BoardDao {
 	public int delete(int no) {
 		System.out.println("dao delete");
 		return sqlSession.delete("board.delete", no);
+	}
+	
+	//rlist
+	public List<BoardVo> rList(){
+		System.out.println("dao rList");
+		return sqlSession.selectList("board.rList");
 	}
 }

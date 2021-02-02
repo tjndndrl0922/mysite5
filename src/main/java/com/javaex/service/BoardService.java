@@ -23,6 +23,7 @@ public class BoardService {
 	//read
 	public BoardVo read(int no) {
 		System.out.println("service read");
+		boardDao.hitupdate(no);
 		return boardDao.selectOne(no);
 	}
 	
@@ -48,5 +49,11 @@ public class BoardService {
 	public int remove(int no) {
 		System.out.println("service remove");
 		return boardDao.delete(no);
+	}
+	
+	//rlist
+	public List<BoardVo> rList(){
+		System.out.println("service rList");
+		return boardDao.rList();
 	}
 }

@@ -69,4 +69,19 @@ public class BoradController {
 		boardService.remove(no);
 		return "redirect:/board/list"; 
 	}
+	
+	@RequestMapping(value="/rList",method = {RequestMethod.GET, RequestMethod.POST})
+	public String rList(Model model) {
+		System.out.println("controller rlist");
+		List<BoardVo> boardrList = boardService.rList();
+		model.addAttribute("boardrList", boardrList);
+		return "board/rList";
+	}
+	
+	@RequestMapping(value="/rWrite", method = {RequestMethod.GET, RequestMethod.POST})
+	public String rwrite(@ModelAttribute("boardVo") BoardVo boardVo) {
+		System.out.println("controller write");
+		boardService.write(boardVo);
+		return "redirect:/board/rList";
+	}
 }

@@ -34,6 +34,14 @@
 		]]>
 	</select>
 	
+	<select id="hitUpdate" parameterType="int">
+		<![CDATA[
+			update board
+			set hit = hit+1
+			where no = #{no}
+		]]>
+	</select>
+	
 	<!-- 작성하기 -->	
 	<select id="insert" parameterType="com.javaex.vo.BoardVo">
 		<![CDATA[
@@ -59,6 +67,23 @@
 		
 		]]>	
 	</select>
-
+	
+		<!--rlist 가져오기 -->
+	<select id="rList" resultType="com.javaex.vo.BoardVo">
+	    <![CDATA[
+	        SELECT  r.no no,
+	        		r.user_no userNo,
+			        r.title title,
+			        r.content content,
+			        r.hit hit,
+			        r.reg_date regDate,
+			        r.group_no groupNo,
+			        r.order_no orderNo,
+			        r.depth depth
+			FROM    rboard r, users u
+			where r.user_no = u.no
+			order by group_no desc, order_no asc
+	    ]]>
+	</select>
 
 </mapper>

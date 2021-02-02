@@ -11,6 +11,11 @@ public class BoardVo {
 	private int userNo;
 	private String name;
 
+	// rboard
+	private int groupNo;
+	private int orderNo;
+	private int depth;
+
 	public BoardVo() {
 		super();
 	}
@@ -80,6 +85,30 @@ public class BoardVo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getGroupNo() {
+		return groupNo;
+	}
+
+	public void setGroupNo(int groupNo) {
+		this.groupNo = groupNo;
+	}
+
+	public int getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 
 	@Override
