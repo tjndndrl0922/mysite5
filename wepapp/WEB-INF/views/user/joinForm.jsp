@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript" src="/mysite5/assets/js/jquery/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
@@ -42,16 +45,20 @@
             <!-- //content-head -->
 
 			<div id="user">
-				<div id="joinForm">
-					<form action="${pageContext.request.contextPath}/user/join" method="get">
-
+				<div>
+					<form  id="joinForm" action="${pageContext.request.contextPath}/user/join" method="get">
 						<!-- 아이디 -->
 						<div class="form-group">
 							<label class="form-text" for="input-uid">아이디</label> 
 							<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-							<button type="button" id="">중복체크</button>
+							<button type="button" id="btnCheck">중복체크</button>
 						</div>
-
+						
+						<p id="msg">
+							<!-- 아이디 사용가능 여부 메세지 -->
+								
+						</p>
+						
 						<!-- 비밀번호 -->
 						<div class="form-group">
 							<label class="form-text" for="input-pass">패스워드</label> 
@@ -83,7 +90,7 @@
 							<input type="checkbox" id="chk-agree" value="" name="">
 							<label for="chk-agree">서비스 약관에 동의합니다.</label> 
 						</div>
-						
+						 
 						<!-- 버튼영역 -->
 		                <div class="button-area">
 		                    <button type="submit" id="btn-submit">회원가입</button>
@@ -105,5 +112,65 @@
 	<!-- //wrap -->
 
 </body>
+
+<script type="text/javascript">
+	$("#btnCheck").on("click" , function(){
+		console.log("중복체크 버튼 클릭");
+		var uid = $("#input-uid").val();
+		var pw = $("#input-pass").val();
+		console.log(uid);
+		
+		//ajax데이터만 받을때
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath }/user/idcheck",		
+			type : "post",
+			/* contentType : "application/json", */
+			data : {id:uid, password:pw},
+			
+			dataType : "text", 
+			success : function(result){
+				/*성공시 처리해야될 코드 작성*/
+				if(result == 'can'){
+					console.log("can");
+					$("#msg").html("사용할수 있는 아이디 입니다.");
+				}else{
+					console.log("cant");
+					$('#msg').html("사용할수 없는 아이디 입니다.")
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	//폼을 submit 할때 --> 
+	$("#joinForm").on("submit", function(){
+		
+		//패스워드 체크
+		var pw = $("#input-pass").val();
+		console.log(pw.length);
+		
+		
+		
+		if(pw.length < 8){
+			alert("패스워드는 8글자 이상입니다.")
+			return false;
+		}
+		
+		//동의여부 체크
+		var check = $("chk:agree").is(":checked");
+		console.log(check);
+
+		if(!check){
+			//동의하기 checkbox 체크 안!되있으면 > 약관에 동의해주세요 --> submit진행되면 안됨, alert()	
+			alert("약관에 동의해주세요");
+			return false;
+		}
+		
+		return ture;
+	});
+</script>
 
 </html>

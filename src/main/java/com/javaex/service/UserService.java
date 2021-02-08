@@ -36,4 +36,20 @@ public class UserService {
 		return userDao.update(userVo);
 	}
 	
+	//회원가입 아이디 체크
+	public String idcheck(String id) {
+		System.out.println("userService idcheck()");
+		UserVo userVo = userDao.selectOne(id);
+		String result = "";
+		
+		if(userVo==null) {
+			//사용할수 있는 아이디
+			result = "can";
+		}else {
+			//중복 아이디, 사용할수 없는 아이디
+			result= "cant";
+		}
+		return result;
+	}
+	
 }
