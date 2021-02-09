@@ -75,13 +75,20 @@ public class BoradController {
 		System.out.println("controller rlist");
 		List<BoardVo> boardrList = boardService.rList();
 		model.addAttribute("boardrList", boardrList);
-		return "board/rList";
+		return "board/rlist";
 	}
 	
 	@RequestMapping(value="/rWrite", method = {RequestMethod.GET, RequestMethod.POST})
-	public String rwrite(@ModelAttribute("boardVo") BoardVo boardVo) {
-		System.out.println("controller write");
-		boardService.write(boardVo);
+	public String rWrite(@ModelAttribute("boardVo") BoardVo boardVo) {
+		System.out.println("controller rWrite");
+		boardService.rWrite(boardVo);
 		return "redirect:/board/rList";
+	}
+	
+	@RequestMapping(value="/rRead", method = {RequestMethod.GET, RequestMethod.POST})
+	public String rRead(@RequestParam("no") int no,Model model) {
+		System.out.println("controller rRead");
+		model.addAttribute("boardVo", boardService.rRead(no));
+		return "board/rRead";
 	}
 }

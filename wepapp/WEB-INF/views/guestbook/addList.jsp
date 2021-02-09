@@ -54,10 +54,10 @@
 						</colgroup>
 						<tbody>
 							<tr>
-								<th><label class="form-text" for="input-uname">이름</label></td>
+								<th><label class="form-text" for="input-uname">이름</label></th>
 								<td><input id="input-uname" type="text" name="name"></td>
-								<th><label class="form-text" for="input-pass">패스워드</label></td>
-								<td><input id="input-pass"type="password" name="pass"></td>
+								<th><label class="form-text" for="input-pass">패스워드</label></th>
+								<td><input id="input-pass"type="password" name="password"></td>
 							</tr>
 							<tr>
 								<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
@@ -73,7 +73,7 @@
 					
 				</form>	
 				
-					<c:forEach items="${gList}" var="vo" varStatus="status">
+					<c:forEach items="${guestList}" var="vo" varStatus="status">
 						<table class="guestRead">
 							<colgroup>
 									<col style="width: 10%;">

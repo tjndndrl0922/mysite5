@@ -55,4 +55,16 @@ public class BoardDao {
 		System.out.println("dao rList");
 		return sqlSession.selectList("board.rList");
 	}
+	
+	//rWrite
+	public int rinsert(BoardVo boardVo) {
+		System.out.println("dao rWrite");
+		return sqlSession.insert("board.rinsert", boardVo);
+	}
+	
+	//rRead
+	public void selectRone(int no) {
+		System.out.println("dao selectRone");
+		return ;
+	}
 }

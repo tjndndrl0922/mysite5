@@ -85,5 +85,33 @@
 			order by group_no desc, order_no asc
 	    ]]>
 	</select>
-
+	
+		<!-- 작성하기 -->	
+	<select id="rinsert" parameterType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			insert into rboard
+			values(seq_rboard_no.nextval, 
+			        #{userNo}, 
+			        #{title}, 
+			        #{content}, 
+			        0, 
+			        sysdate, 
+			        seq_rboard_group_no.nextval,
+			        1},
+			        0)
+		]]>
+	</select>
+	
+	<select id="selectRone" parameterType="int" resultType="com.javaex.vo.BoardVo">
+		<![CDATA[
+			SELECT  u.name name,
+			        b.hit hit,
+			        b.reg_date regDate,
+			        b.title title,
+			        b.content content
+			FROM board b, users u
+			where b.user_no = u.no
+			and b.no = #{no}
+		]]>
+	</select>
 </mapper>

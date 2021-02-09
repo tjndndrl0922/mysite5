@@ -13,7 +13,7 @@ import com.javaex.service.GuestBookService;
 import com.javaex.vo.GuestBookVo;
 
 @Controller
-@RequestMapping(value = "/guest")
+@RequestMapping(value = "/guestbook")
 public class GuestBookController {
 
 	@Autowired
@@ -49,5 +49,13 @@ public class GuestBookController {
 	public String delete(@ModelAttribute GuestBookVo guestVo) {
 		guestService.delete(guestVo);
 		return "redirect:/guestbook/addList";
+	}
+	
+	//ajaxList
+	@RequestMapping(value = "/ajaxList", method = {RequestMethod.GET,RequestMethod.POST})
+	public String ajaxList() {
+		System.out.println("controller - ajaxList");
+		
+		return "guestbook/ajaxList";
 	}
 }

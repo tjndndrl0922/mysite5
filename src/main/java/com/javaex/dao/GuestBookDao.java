@@ -29,4 +29,19 @@ public class GuestBookDao {
 	public int delete(GuestBookVo guestVo) {
 		return sqlSession.delete("guestbook.delete", guestVo);
 	}
+	
+	//ajax 저장
+	public int insertSelectKey(GuestBookVo guestVo) {
+		System.out.println("guestbookDao insertSelectKey()");
+		System.out.println("xml실행전 "+guestVo);
+		sqlSession.insert("guestbook.insertSelectKey", guestVo);
+		System.out.println("xml실행후"+guestVo);
+		return guestVo.getNo();
+	}
+	
+	//글 1개 가져오기
+	public GuestBookVo selectOne(int no) {
+		System.out.println("gusetbookDao selectOne()");
+		return sqlSession.selectOne("guestbook.select", no);
+	}
 }

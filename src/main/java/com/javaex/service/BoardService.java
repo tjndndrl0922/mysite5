@@ -56,4 +56,16 @@ public class BoardService {
 		System.out.println("service rList");
 		return boardDao.rList();
 	}
+	
+	//rWrite
+	public int rWrite(BoardVo boardVo) {
+		System.out.println("service rWrite");
+		return boardDao.rinsert(boardVo);
+	}
+	
+	//rRead
+	public BoardVo rRead(int no) {
+		System.out.println("controller");
+		return boardDao.selectRone(no);
+	}
 }

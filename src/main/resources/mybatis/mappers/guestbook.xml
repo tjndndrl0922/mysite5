@@ -5,31 +5,27 @@
 
 
 	<!-- 쿼리문 작성 -->
-	<!-- GuestBookVo Map -->
-	<resultMap id="resultMapGuestVo" type="com.javaex.vo.GuestBookVo" >
-	    <result column="no" property="no" />
-	    <result column="name" property="name" />
-	    <result column="password" property="password" />
-	    <result column="content" property="content" />
-	    <result column="reg_date" property="regDate" />
-	</resultMap>
 	
 	<!-- 전체리스트 가져오기 -->
-	<select id="selectList" resultMap="resultMapGuestVo">
+	<select id="selectList" parameterType="com.javaex.vo.GuestBookVo" resultType="com.javaex.vo.GuestBookVo">
 	    <![CDATA[
 	        SELECT  no,
 			        name,
 			        password,
 			        content,
-			        to_char(reg_date, 'yyyy-mm-dd hh24:mi:ss') reg_date
+			        to_char(reg_date, 'yyyy-mm-dd hh24:mi:ss') regDate
 			FROM guestbook
 	    ]]>
 	</select>
 	
-	<insert id="insert" parameterType="com.javaex.vo.GuestBookVo">
+	<insert id="insert" parameterType="com.javaex.vo.GuestBookVo" >
 		<![CDATA[
 			insert into guestbook
-			values(seq_no.nextval, #{name}, #{password}, #{content}, sysdate)
+			values(seq_no.nextval, 
+					#{name}, 
+					#{password}, 
+					#{content}, 
+					sysdate)
 		]]>
 	</insert>
 	
@@ -42,8 +38,34 @@
 	
 	</delete>
 
+	<!-- keyProperty=저장할변수 resultType=저장할변수의타입 -->
+	<!-- ajax글저장 -->
+	<insert id="insertSelectKey" parameterType="com.javaex.vo.GuestBookVo">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">	
+				select seq_no.nextval from dual
+		</selectKey>
+		<![CDATA[
+			insert into guestbook
+			values( #{no}, 
+					#{name}, 
+					#{password}, 
+					#{content}, 
+					sysdate)
+		]]>
+	</insert>
 
-
+	<!-- ajax 글 1개 가져오기 -->
+	<select id="select"  parameterType="int" resultType="com.javaex.vo.GuestBookVo">
+		<![CDATA[
+			SELECT  no,
+			        name,
+			        content,
+			        to_char(reg_date, 'yyyy-mm-dd hh24:mi:ss') regDate
+			FROM guestbook
+			where no = #{no}
+		]]>
+	
+	</select>
 
 
 
