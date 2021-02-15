@@ -45,10 +45,10 @@
 
 			<div id="board">
 				<div id="list">
-					<form action="" method="get">
+					<form action="${pageContext.request.contextPath}/board/list3" method="get">
 						<div class="form-group text-right">
-							<input type="text">
-							<button type="submit" id=btn_search>검색</button>
+							<input type="text" name="keyword">
+							<button type="submit" id="btn_search">검색</button>
 						</div>
 					</form>
 					<table >
@@ -63,7 +63,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${boardList}" var="vo">
+							<c:forEach items="${pMap.boardList}" var="vo">
 									<tr>
 										<td>${vo.no }</td>
 										<td class="text-left"><a href="${pageContext.request.contextPath}/board/read?no=${vo.no}">${vo.title } </a></td>
@@ -81,24 +81,23 @@
 		
 					<div id="paging">
 						<ul>
-							<li><a href="">◀</a></li>
-							<li><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">4</a></li>
-							<li class="active"><a href="">5</a></li>
-							<li><a href="">6</a></li>
-							<li><a href="">7</a></li>
-							<li><a href="">8</a></li>
-							<li><a href="">9</a></li>
-							<li><a href="">10</a></li>
-							<li><a href="">▶</a></li>
+							<c:if test="${pMap.prev == true}">
+								<li><a href="${pageContext.request.contextPath}/board/list3?crtPage=${pMap.startPageBtnNo-1}">◀</a></li>
+							</c:if>
+							
+							<c:forEach begin="${pMap.startPageBtnNo}" end="${pMap.endPageBtnNo}" step="1" var="page"> 
+								<li><a href="${pageContext.request.contextPath}/board/list3?crtPage=${page}&keyword=${param.keyword}">${page }</a></li>
+							</c:forEach>
+							
+							<c:if test="${pMap.next == true }">
+								<li><a href="${pageContext.request.contextPath}/board/list3?crtPage=${pMap.endPageBtnNo+1}">▶</a></li>
+							</c:if>
 						</ul>
 						
 						
 						<div class="clear"></div>
 					</div>
-					<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm">글쓰기</a>
+					<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm?userNo=${vo.userNo}">글쓰기</a>
 				
 				</div>
 				<!-- //list -->

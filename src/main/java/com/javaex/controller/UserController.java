@@ -56,20 +56,14 @@ public class UserController {
 	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
 		System.out.println("/user/login");
 		System.out.println(userVo.toString());
-		
+
 		UserVo authUser = userService.login(userVo);
 		
-		//실패했을때 --> 로그인폼 result = fail
-		if(authUser == null) {
-			System.out.println("login/fail");
-			return "redirect:/user/loginForm&result=fail";
-		
-		//성공했을때
-		}else {
-			System.out.println("login/success");
-			
+		if (authUser != null) { // 성공했을때
 			session.setAttribute("authUser", authUser);
 			return "redirect:/";
+		} else { //실패했을때
+			return "redirect:/user/loginForm?result=fail";
 		}
 	}
 	

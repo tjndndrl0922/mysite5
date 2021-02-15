@@ -16,10 +16,79 @@
 			        b.user_no userNo
 			FROM  board b, users u
 			where b.user_no = u.no
-			order by no asc
+			order by no desc
 	    ]]>
 	</select>
 
+		<!-- 전체리스트 가져오기(검색기능 추가) -->
+	<select id="selectList2" parameterType="string" resultType="com.javaex.vo.BoardVo">
+	    <![CDATA[
+	        SELECT  b.no no,
+			        b.title title,
+			        u.name name,
+			        b.hit hit,
+			        b.reg_date regDate,
+			        b.user_no userNo
+			FROM  board b, users u
+			where b.user_no = u.no
+		 ]]>
+		 	<if test="value != null and value !='' ">
+				and title like '%' || #{keyword} || '%'
+			</if>	
+		 <![CDATA[	
+			order by no desc
+	    ]]>
+	</select>
+	
+		<!-- 전체리스트 가져오기(검색기능 + 페이징 기능) -->
+	<select id="selectList3" parameterType="map" resultType="com.javaex.vo.BoardVo">
+	    <![CDATA[
+	        SELECT  r.rnum,
+			        r.no,
+			        r.title,
+			        r.name,
+			        r.hit,
+			        r.reg_date,
+			        r.user_No
+			FROM  (SELECT  rownum rnum,
+			                o.no,
+			                o.title,
+			                o.name,
+			                o.hit,
+			                o.reg_date,
+			                o.user_No
+			        FROM (SELECT  b.no,
+			                      b.title,
+			                      u.name,
+			                      b.hit,
+			                      to_char(b.reg_date, 'yyyy-mm-dd') reg_date,
+			                      b.user_No
+			               FROM board b, users u
+			               where b.user_no = u.no
+		]]>	               
+							<if test=" value != null and value != '' ">
+			               		and b.title like '%'|| #{keyword} ||'%'
+			               	</if>
+		<![CDATA[	               
+			               order by no desc) o) r
+			where r.rnum >= #{startRnum}
+			and r.rnum <= #{endRnum}
+		 ]]>
+		 
+	</select>
+	
+	<!-- 전체 글 갯수 가져오기 -->
+	<select id="selectTotalCnt" parameterType="string" resultType="int">
+		<![CDATA[
+			SELECt count(*)
+			FROM board b, users u
+			where b.user_no = u.no
+		]]>	
+		<if test=" keyword != null and keyword != '' ">
+			and b.title like '%'|| #{keyword} ||'%'
+		</if>
+	</select>
+	
 	<!-- 한사람 리스트 가져오기 -->
 	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.BoardVo">
 		<![CDATA[

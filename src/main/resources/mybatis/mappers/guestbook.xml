@@ -7,7 +7,7 @@
 	<!-- 쿼리문 작성 -->
 	
 	<!-- 전체리스트 가져오기 -->
-	<select id="selectList" parameterType="com.javaex.vo.GuestBookVo" resultType="com.javaex.vo.GuestBookVo">
+	<select id="selectList" resultType="com.javaex.vo.GuestBookVo">
 	    <![CDATA[
 	        SELECT  no,
 			        name,
@@ -15,6 +15,7 @@
 			        content,
 			        to_char(reg_date, 'yyyy-mm-dd hh24:mi:ss') regDate
 			FROM guestbook
+			order by no desc
 	    ]]>
 	</select>
 	
