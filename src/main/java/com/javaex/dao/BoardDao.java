@@ -38,7 +38,7 @@ public class BoardDao {
 		map.put("endRnum", endRnum);
 		System.out.println(map);
 		
-		return sqlSession.selectList("board.selectList3", map);
+		return sqlSession.selectList("board.selectList3",map);
 	}
 	
 	

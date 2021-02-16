@@ -61,7 +61,16 @@ public class BoardService {
 		//전체 글갯수 구하기
 		int totalCount = boardDao.selectTotalCnt(keyword);
 		
+		 //1 --> 1 ~ 5  1/5.0 -->0.2-->1.0-->1 * 5  ---> 5
+	    //2 --> 1 ~ 5
+	    //3 --> 1 ~ 5
+	    //4 --> 1 ~ 5
+	    //5 --> 1 ~ 5
+	    //6 --> 6 ~ 10
+	    //7 --> 6 ~ 10
+	    //마지막 버튼 번호
 		//마지막 버튼 번호
+		
 		int endPageBtnNo = (int)Math.ceil(crtPage/(double)pageBtnCount) * pageBtnCount;
 				
 		//시작 버튼 번호
