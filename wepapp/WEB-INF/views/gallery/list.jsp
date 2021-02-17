@@ -59,7 +59,7 @@
 							<li>
 								<div class="view" >
 									<img class="imgItem" src="">
-									<div class="imgWriter">작성자: <strong>${authUser.name}</strong></div>
+									<div class="imgWriter">작성자: <strong>${GalleryVo.name }</strong></div>
 								</div>
 							</li>
 						<!-- 이미지반복영역 -->

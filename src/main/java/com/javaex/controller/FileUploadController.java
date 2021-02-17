@@ -16,6 +16,7 @@ public class FileUploadController {
 	
 	@Autowired
 	private FileUploadService fileUploadService;
+	
 	//파일 등록 폼
 	@RequestMapping(value="/form", method = {RequestMethod.GET,RequestMethod.POST} )
 	public String form() {
@@ -28,7 +29,7 @@ public class FileUploadController {
 	public String upload(@RequestParam("file") MultipartFile file, Model model) {
 		System.out.println("fileUploadController.upload()");
 		
-		fileUploadService.restore(file);
+		String saveName = fileUploadService.restore(file);
 		
 		model.addAttribute("saveName", saveName);
 		return "/fileUpload/result";
