@@ -60,6 +60,12 @@ public class GalleryService {
 				long fileSize = file.getSize();
 				System.out.println("fileSize:"+fileSize);
 				
+				//dao에 보낼 자료 묶기
+				GalleryVo galleryVo = new GalleryVo(userNo,content,filePath,orgName,saveName,fileSize);
+				System.out.println(galleryVo);
+				
+				GalleryDao.insert(galleryVo);
+				
 				//서버 하드디스크 파일  byte 형식으로 저장
 				try {
 					byte[] fileData = file.getBytes();
@@ -74,10 +80,7 @@ public class GalleryService {
 					e.printStackTrace();
 				}
 				
-				GalleryVo galleryVo = new GalleryVo(userNo,content,filePath,orgName,saveName,fileSize);
 				
-				
-				GalleryDao.insert(galleryVo);
 		
 	}
 }

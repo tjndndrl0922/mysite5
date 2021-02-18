@@ -34,8 +34,11 @@ public class GalleryController {
 	public String upload(@RequestParam("file") MultipartFile file,
 						 @RequestParam("content") String content) {
 		System.out.println("GalleryController.upload()");
+		System.out.println(file);
+		System.out.println(content);
 		GalleryService.restore(file, content);
-		return "";
+		
+		return "redirect:/gallery/list";
 	}
 	
 }

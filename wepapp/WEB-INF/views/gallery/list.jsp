@@ -56,12 +56,14 @@
 					<ul id="viewArea">
 						
 						<!-- 이미지반복영역 -->
-							<li>
-								<div class="view" >
-									<img class="imgItem" src="">
-									<div class="imgWriter">작성자: <strong>${GalleryVo.name }</strong></div>
-								</div>
-							</li>
+							<c:forEach items="${galleryList }" var="vo" >
+								<li>
+									<div class="view" >
+										<img class="imgItem" src="${pageContext.request.contextPath}/upload/${vo.saveName}">
+										<div class="imgWriter">작성자: <strong>${vo.name }</strong></div>
+									</div>
+								</li>
+							</c:forEach>
 						<!-- 이미지반복영역 -->
 						
 						
@@ -91,15 +93,15 @@
 					<h4 class="modal-title">이미지등록</h4>
 				</div>
 				
-				<form method="" action="" >
+				<form method="post" action="${pageContext.request.contextPath }/gallery/upload" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-text">글작성</label>
-							<input id="addModalContent" type="text" name="" value="" >
+							<input id="addModalContent" type="text" name="content" value="" >
 						</div>
 						<div class="form-group">
 							<label class="form-text">이미지선택</label>
-							<input id="file" type="file" name="" value="" >
+							<input id="file" type="file" name="file" value="" >
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -150,7 +152,13 @@
 </body>
 
 <script type="text/javascript">
-
+	//이미지 올리기 클릭시에 모달 창 띄우기
+	$("#btnImgUpload").on("click", function(){
+		console.log("이미지 올리기 버튼 클릭");
+		
+		//모달창 호출
+		$("#addModal").modal();
+	});
 
 
 </script>
